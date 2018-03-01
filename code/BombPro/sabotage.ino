@@ -30,7 +30,7 @@ void sabotage() {
     lcd.setCursor(0, 0);
     lcd.print(GAME_TIME);
     lcd.setCursor(3,1);
-    lcd.print("          ");
+    lcd.print(F("          "));
     aTime = millis() - iTime;
     lcd.setCursor(5, 2);
 
@@ -238,7 +238,7 @@ void destroySabotage() {
         if (percent >= 100)
         {
           cls();
-          lcd.print("   Bomb Disarmed");
+          lcd.print(F("   Bomb Disarmed"));
           delay(1000);
           sabotage();
         }

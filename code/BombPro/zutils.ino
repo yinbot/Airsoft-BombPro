@@ -51,7 +51,7 @@ void printTime(unsigned long minutos, unsigned long aTiempo){
     if(timeCalcVar/60<10)
   {
     lcd.setCursor(2,1);
-    lcd.print("0");
+    lcd.print(F("0"));
     lcd.print(timeCalcVar/60);
   }
   else
@@ -59,32 +59,32 @@ void printTime(unsigned long minutos, unsigned long aTiempo){
     lcd.print(timeCalcVar/60);
   }
   
-  lcd.print(":");
+  lcd.print(F(":"));
   
   }
   //minutes
   if(timeCalcVar%60<10)
   {
-    lcd.print("0");
+    lcd.print(F("0"));
     lcd.print(timeCalcVar%60);
   }
   else
   {
     lcd.print(timeCalcVar%60);
   }
-  lcd.print(":");
+  lcd.print(F(":"));
   //seconds
   timeCalcVar=aTiempo/1000;
   if(59-(timeCalcVar%60)<10)
   {
-    lcd.print("0");
+    lcd.print(F("0"));
     lcd.print(59-(timeCalcVar%60));
   }
   else
   {
     lcd.print(59-(timeCalcVar%60));
   }
-  lcd.print(":");
+  lcd.print(F(":"));
   //this not mach with real time, is just a effect, it says 999 because millis%1000 sometimes give 0 LOL
   lcd.print(999-(millis()%1000));
 }
@@ -93,18 +93,18 @@ void printTimeDom(unsigned long aTiempo, boolean showMillis){
   //minutes
   if((aTiempo/60000)<10)
   {
-    lcd.print("0");
+    lcd.print(F("0"));
     lcd.print(aTiempo/60000);
   }
   else
   {
     lcd.print(aTiempo/60000);
   }
-  lcd.print(":");
+  lcd.print(F(":"));
   //seconds
   if(((aTiempo/1000)%60)<10)
   {
-    lcd.print("0");
+    lcd.print(F("0"));
     lcd.print((aTiempo/1000)%60);
   }
   else
@@ -112,7 +112,7 @@ void printTimeDom(unsigned long aTiempo, boolean showMillis){
     lcd.print((aTiempo/1000)%60);
   }
   if(showMillis){
-    lcd.print(":");
+    lcd.print(F(":"));
     //this not mach with real time, is just a effect, it says 999 because millis%1000 sometimes give 0 LOL
       lcd.print(999-millis()%1000);
 
@@ -122,18 +122,18 @@ void printTimeDom(unsigned long aTiempo, boolean showMillis){
 void startGameCount(){
   lcd.clear();
   lcd.setCursor(3,1);
-  lcd.print("Ready to Start");
+  lcd.print(F("Ready to Start"));
   lcd.setCursor(2,2);
-  lcd.print("Press ANY Button");
+  lcd.print(F("Press ANY Button"));
   keypad.waitForKey();//if you press a button game start
 
   cls();
   lcd.setCursor(3,1);
-  lcd.print("Starting Game");
+  lcd.print(F("Starting Game"));
   for(int i = 5; i > 0 ; i--){ // START COUNT GAME INIT
     lcd.setCursor(8,2);
     tone(tonepin,2000,100);
-    lcd.print("in ");
+    lcd.print(F("in "));
     lcd.print(i);
     delay(1000);
   }

@@ -117,11 +117,11 @@ void config(){
 
       case 2:
         cls();
-        lcd.print("RELAYPIN ON!");
+        lcd.print(F("RELAYPIN ON!"));
         digitalWrite(RELAYPIN, HIGH);   // turn the LED on (HIGH is the voltage level)
         delay(4000);   // wait for 4 second
         cls();
-        lcd.print("RELAYPIN OFF!");
+        lcd.print(F("RELAYPIN OFF!"));
         digitalWrite(RELAYPIN, LOW);
         delay(2000);
         config();
@@ -142,7 +142,7 @@ void configQuickGame(){
     lcd.print(GAME_TIME);
     delay(100);
     lcd.setCursor(4,1);
-    lcd.print("00:00 hh:mm");
+    lcd.print(F("00:00 hh:mm"));
     lcd.cursor();
     lcd.blink();
     lcd.setCursor(4,1);
@@ -150,7 +150,7 @@ void configQuickGame(){
     for(int i=0;i<4;i++){ 
       while(1){
         if(i==2 && var2==0){
-          lcd.print(":");
+          lcd.print(F(":"));
           var2=1;
         }
 
@@ -171,7 +171,7 @@ void configQuickGame(){
     lcd.noCursor();
     lcd.noBlink();
     lcd.setCursor(7,3);
-    lcd.print(" OK?");
+    lcd.print(F(" OK?"));
     //zona donde pasamos los items a
     //redibujar
     while(1){
@@ -217,7 +217,7 @@ void configQuickGame(){
     lcd.noCursor();
     lcd.noBlink();   
     lcd.setCursor(7,3);
-    lcd.print(" OK?");
+    lcd.print(F(" OK?"));
     //zona donde pasamos los items a
     //redibujar
     while(1){
@@ -264,7 +264,7 @@ void configQuickGame(){
     lcd.noCursor();
     lcd.noBlink(); 
     lcd.setCursor(7,3);
-    lcd.print(" OK?");  
+    lcd.print(F(" OK?"));
     
     //zona donde pasamos los items a
     //redibujar

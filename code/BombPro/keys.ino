@@ -19,7 +19,7 @@ void setCode(){
 
         if (i != 0){
           lcd.setCursor(i-1,1);
-          lcd.print("*");
+          lcd.print(F("*"));
           lcd.print(var);
         }
         else
@@ -75,7 +75,7 @@ void setPass(){
         password[i] =  var;
         if (i != 0){
           lcd.setCursor(i-1,1);
-          lcd.print("*");
+          lcd.print(F("*"));
           lcd.print(var);
         }
         else
@@ -94,12 +94,12 @@ void setNewPass(){
   while(1){
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("   Enter New Pass");
+    lcd.print(F("   Enter New Pass"));
     setPass();
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("    Retype Pass");
+    lcd.print(F("    Retype Pass"));
 
     setCode();
 
@@ -107,14 +107,14 @@ void setNewPass(){
 
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("  Password Set OK!");
+      lcd.print(F("  Password Set OK!"));
       delay(2000); 
       break; 
     }
     else {
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print(" ERROR Dont Match!");
+      lcd.print(F(" ERROR Dont Match!"));
       if(soundEnable)tone(tonepin,errorTone,200);
       delay(2000); 
 

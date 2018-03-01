@@ -57,20 +57,20 @@ char BT_DEFUSER = 'x';   // not implemented
 
 //leds
 
-const int REDLED = 11;
-const int GREENLED = 10;
+const uint8_t REDLED = 11;
+const uint8_t GREENLED = 10;
 //const int BLUELED = 12;
 //RELAYPIN
 boolean relayEnable = false;
-const int RELAYPIN = 9;
+const uint8_t RELAYPIN = 9;
 //IS VERY IMPORTANT THAT YOU TEST THIS TIME. BY DEFAULT IS IN 1 SEC. THAT IS NOT TOO MUCH. SO TEST IT!
 const int RELAY_TIME = 5000;
 
 //TIME INTS
-int GAMEHOURS = 0;
-int GAMEMINUTES = 45;
-int BOMBMINUTES = 4;
-int ACTIVATESECONDS = 5;
+uint8_t GAMEHOURS = 0;
+uint8_t GAMEMINUTES = 45;
+uint8_t BOMBMINUTES = 4;
+uint8_t ACTIVATESECONDS = 5;
 
 boolean endGame = false;
 
@@ -82,11 +82,11 @@ boolean defusing;
 boolean cancelando;
 // SOUND TONES
 boolean soundEnable = true;
-int tonepin = 8; // Pin 13 for the sound
+uint8_t tonepin = 8; // Pin 13 for the sound
 int alarmTone1 = 700;
 int alarmTone2 = 2600;//http://www.mainstreamds.com/wp-content/uploads/2014/08/bomb2.0_esquema.png
 int activeTone = 1330;
-int errorTone = 100;
+uint8_t errorTone = 100;
 
 unsigned long iTime;
 unsigned long timeCalcVar;
@@ -100,13 +100,13 @@ void setup(){
   Serial.begin(9600);
   lcd.setCursor(6,0);
   tone(tonepin,2400,30);
-  lcd.print("ASC-SKG");// you can add your team name or someting cool
+  lcd.print(F("ASC-SKG"));// you can add your team name or someting cool
   delay(1000);
   lcd.setCursor(3,1);
-  lcd.print(" A.A.S.D V2");// you can add your team name or someting cool
+  lcd.print(F(" A.A.S.D V2"));// you can add your team name or someting cool
   delay(1000);
   lcd.setCursor(3,3);
-  lcd.print("by LupusWorax");// you can add your team name or someting cool
+  lcd.print(F("by LupusWorax"));// you can add your team name or someting cool
   delay(2000);
   keypad.setHoldTime(50);
   keypad.setDebounceTime(50);

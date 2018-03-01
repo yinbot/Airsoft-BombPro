@@ -25,7 +25,7 @@ void search() {
     lcd.setCursor(3, 0);
     lcd.print(GAME_TIME_TOP);
     lcd.setCursor(3, 1);
-    lcd.print("           ");
+    lcd.print(F("           "));
     aTime = millis() - iTime;
     lcd.setCursor(5, 2);
 

@@ -1,7 +1,7 @@
 void domination(){
 
   //SETUP INITIAL TIME 
-  int minutos = GAMEMINUTES-1;
+  uint8_t minutos = GAMEMINUTES-1;
   boolean showGameTime=true;
   unsigned long a;
   unsigned long iTime=millis(); //  initialTime in millisec 
@@ -53,16 +53,16 @@ void domination(){
 
     if(showGameTime){ //THE SECOND IS /2
       lcd.setCursor(5,0);
-      lcd.print("GAME TIME");
+      lcd.print(F("GAME TIME"));
       lcd.setCursor(5,2);
       printTime(minutos, aTime);
     }
     else if (!showGameTime){
 
       lcd.setCursor(2,0);
-      if(team == 0)lcd.print("  NEUTRAL ZONE");
-      if(team == 1)lcd.print("   BLUE ZONE");
-      if(team == 2)lcd.print("   RED ZONE");
+      if(team == 0)lcd.print(F("  NEUTRAL ZONE"));
+      if(team == 1)lcd.print(F("   BLUE ZONE"));
+      if(team == 2)lcd.print(F("   RED ZONE"));
 
       if(team>0){
         lcd.setCursor(5,2);
@@ -82,9 +82,9 @@ void domination(){
     while((defusing || cancelando) && team > 0)
     {
       cls();
-      if(team>0)lcd.print("   NEUTRALIZING...");
+      if(team>0)lcd.print(F("   NEUTRALIZING..."));
       lcd.setCursor(0,4);
-      unsigned int percent=0;
+      uint8_t percent=0;
       unsigned long xTime=millis(); //start disabling time
       while(defusing || cancelando)
       {
@@ -136,9 +136,9 @@ void domination(){
     while(defusing && team == 0 )
     {
       cls();
-      if(team==0)lcd.print("   CAPTURING ZONE");
+      if(team==0)lcd.print(F("   CAPTURING ZONE"));
       lcd.setCursor(0,3);
-      unsigned int percent=0;
+      uint8_t percent=0;
       unsigned long xTime=millis(); //start disabling time
       while(defusing)
       {
@@ -182,9 +182,9 @@ void domination(){
     while(cancelando && team == 0 )
     {
       cls();
-      if(team==0)lcd.print("   CAPTURING ZONE");
+      if(team==0)lcd.print(F("   CAPTURING ZONE"));
       lcd.setCursor(0,3);
-      unsigned int percent=0;
+      uint8_t percent=0;
       unsigned long xTime=millis(); //start disabling time
       while(cancelando)
       {
@@ -240,18 +240,18 @@ void gameOver(){
     }
     lcd.clear();
     lcd.setCursor(2,5);
-    lcd.print("  TIME OVER!");
+    lcd.print(F("  TIME OVER!"));
     lcd.setCursor(0,3);
 
     //check who team win the base
     if(greenTime>redTime){
       //greenteam wins
-      lcd.print("   BLUE TEAM WINS");
+      lcd.print(F("   BLUE TEAM WINS"));
       digitalWrite(GREENLED, HIGH);
     }
     else{
       //redteam wins 
-      lcd.print("   RED TEAM WINS");
+      lcd.print(F("   RED TEAM WINS"));
       digitalWrite(REDLED, HIGH);
     }
     delay(3000);
@@ -261,7 +261,7 @@ void gameOver(){
       break;
     }
     cls();
-    lcd.print("      Red Time:");
+    lcd.print(F("      Red Time:"));
     lcd.setCursor(7,2);
     printTimeDom(redTime,false);
     delay(3000);
@@ -271,7 +271,7 @@ void gameOver(){
       break;
     }
     cls();
-    lcd.print("     Blue Time:");
+    lcd.print(F("     Blue Time:"));
     lcd.setCursor(7,2);
     printTimeDom(greenTime,false);
     delay(3000);
@@ -283,9 +283,9 @@ void gameOver(){
   }
   cls();
   delay(100);
-  lcd.print("    Play Again?");
+  lcd.print(F("    Play Again?"));
   lcd.setCursor(0,3);
-  lcd.print("   # : Yes * : No");
+  lcd.print(F("   # : Yes * : No"));
   while(1)
   {
     var = keypad.waitForKey();
