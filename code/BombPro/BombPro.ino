@@ -12,39 +12,42 @@
  created 4,Sep, 2010
  Modified 11 Nov 2015
  by Ignacio Lillo
- 
  */
 
-//LiquidCrystal_I2C lcd(0x38,16,2);
-LiquidCrystal_I2C  lcd(0x27,2,1,0,4,5,6,7,3,POSITIVE);
+// the i2c port needs to be specified here. you can detect this with an i2c port scanner
+// https://playground.arduino.cc/Main/I2cScanner
+LiquidCrystal_I2C  lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //three columns
 char keys[ROWS][COLS] = {
-  {'1','2','3','a'}
-  ,
-  {'4','5','6','b'}
-  ,
-  {'7','8','9','c'}
-  ,
-  {'*','0','#','d'}
+  {'1', '2', '3', 'a'},
+  {'4', '5', '6', 'b'},
+  {'7', '8', '9', 'c'},
+  {'*', '0', '#', 'd'},
 };
 
-byte rowPins[ROWS] = {
-  A6, A5, A4, A2}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {
-  A1, A0, A3
-}; //connect to the column pinouts of the keypad
+byte rowPins[ROWS] = {  // connect to the row pinouts of the keypad
+  A6,
+  A5,
+  A4,
+  A2,
+};
+byte colPins[COLS] = { // connect to the column pinouts of the keypad
+  A1,
+  A0,
+  A3,
+};
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 char codeInput[8];
 byte time[4];
-boolean refresh=true;//1 refresh one time...
+boolean refresh = true; // 1 refresh one time...
 char password[8];
-int key=-1;
+int key = -1;
 char lastKey;
 char var;
-boolean passwordEnable=false;
+boolean passwordEnable = false;
 
 //Buttons for lcd shield
 char BT_RIGHT = '6';
@@ -84,7 +87,7 @@ boolean cancelando;
 boolean soundEnable = true;
 uint8_t tonepin = 8; // Pin 13 for the sound
 int alarmTone1 = 700;
-int alarmTone2 = 2600;//http://www.mainstreamds.com/wp-content/uploads/2014/08/bomb2.0_esquema.png
+int alarmTone2 = 2600; // http://www.mainstreamds.com/wp-content/uploads/2014/08/bomb2.0_esquema.png
 int activeTone = 1330;
 uint8_t errorTone = 100;
 
@@ -95,19 +98,10 @@ unsigned long greenTime;
 unsigned long iZoneTime;//initial time for zone
 byte team=0; // 0 = neutral, 1 = green team, 2 = red team
 
-void setup(){
+void setup () {
   lcd.begin(20, 4);
   Serial.begin(9600);
-  lcd.setCursor(6,0);
-  tone(tonepin,2400,30);
-  lcd.print(F("ASC-SKG"));// you can add your team name or someting cool
-  delay(1000);
-  lcd.setCursor(3,1);
-  lcd.print(F(" A.A.S.D V2"));// you can add your team name or someting cool
-  delay(1000);
-  lcd.setCursor(3,3);
-  lcd.print(F("by LupusWorax"));// you can add your team name or someting cool
-  delay(2000);
+  startupSplash();
   keypad.setHoldTime(50);
   keypad.setDebounceTime(50);
   keypad.addEventListener(keypadEvent);
@@ -186,33 +180,37 @@ void setup(){
     B00100,
     B00000,
   };
-  lcd.createChar(0,bar1);
-  lcd.createChar(1,bar2);
-  lcd.createChar(2,bar3);
-  lcd.createChar(3,bar4);
-  lcd.createChar(4,bar5);
-  lcd.createChar(5,up);
-  lcd.createChar(6,down);
+  lcd.createChar(0, bar1);
+  lcd.createChar(1, bar2);
+  lcd.createChar(2, bar3);
+  lcd.createChar(3, bar4);
+  lcd.createChar(4, bar5);
+  lcd.createChar(5, up);
+  lcd.createChar(6, down);
 }
 
-void loop(){
+void loop () {
   menuPrincipal();
 }
-void keypadEvent(KeypadEvent key){
+void keypadEvent (KeypadEvent key) {
   switch (keypad.getState()){
     case RELEASED:
-      switch (key){
-         case '#': defusing=false;
+      switch (key) {
+         case '#':
+          defusing = false;
          break;
-         case '*': cancelando=false;
+         case '*':
+          cancelando = false;
          break;
       }
     break;
     case HOLD:
-      switch (key){
-        case '#': defusing= true;
+      switch (key) {
+        case '#':
+          defusing = true;
         break;
-        case '*': cancelando=true;
+        case '*':
+          cancelando = true;
         break;
       }
     break;
