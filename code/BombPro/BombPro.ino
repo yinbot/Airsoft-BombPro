@@ -36,6 +36,7 @@ byte colPins[COLS] = { // connect to the column pinouts of the keypad
   A1,
   A0,
   A3,
+  A7,
 };
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
