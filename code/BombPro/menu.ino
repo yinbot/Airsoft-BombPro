@@ -117,12 +117,12 @@ void config(){
 
       case 2:
         cls();
-        lcd.print("Mosfet ON!");
-        digitalWrite(mosfet, HIGH);   // turn the LED on (HIGH is the voltage level)
+        lcd.print(F("RELAYPIN ON!"));
+        digitalWrite(RELAYPIN, HIGH);   // turn the LED on (HIGH is the voltage level)
         delay(4000);   // wait for 4 second
         cls();
-        lcd.print("Mosfet OFF!");
-        digitalWrite(mosfet, LOW);
+        lcd.print(F("RELAYPIN OFF!"));
+        digitalWrite(RELAYPIN, LOW);
         delay(2000);
         config();
         break;        
@@ -141,16 +141,16 @@ void configQuickGame(){
     cls();
     lcd.print(GAME_TIME);
     delay(100);
-    lcd.setCursor(0,1);
-    lcd.print("00:00 hh:mm");
+    lcd.setCursor(4,1);
+    lcd.print(F("00:00 hh:mm"));
     lcd.cursor();
     lcd.blink();
-    lcd.setCursor(0,1);
+    lcd.setCursor(4,1);
     byte var2=0;
     for(int i=0;i<4;i++){ 
       while(1){
         if(i==2 && var2==0){
-          lcd.print(":");
+          lcd.print(F(":"));
           var2=1;
         }
 
@@ -170,19 +170,19 @@ void configQuickGame(){
     }
     lcd.noCursor();
     lcd.noBlink();
-    lcd.setCursor(13,1);
-    lcd.print("ok?");
+    lcd.setCursor(7,3);
+    lcd.print(F(" OK?"));
     //zona donde pasamos los items a
     //redibujar
     while(1){
       var = keypad.waitForKey();
-      if(var == 'd') // Cancel or Back Button :')
+      if(var == '#') // Accept
       {
         tone(tonepin,2400,30);
         GAMEMINUTES= ((time[0]*600)+(time[1]*60)+(time[2]*10)+(time[3]));
         break;
       }    
-  if(var == 'c') // Cancel or Back Button :')
+  if(var == '*') // Cancel or Back Button :')
       {
         tone(tonepin,2400,30);
         goto menu1;
@@ -202,7 +202,7 @@ void configQuickGame(){
     lcd.print(ZERO_MINUTES);
     lcd.cursor();
     lcd.blink();
-    lcd.setCursor(0,1);
+    lcd.setCursor(4,1);
     for(int i=0;i<2;i++){ 
       while(1){
         byte varu= getRealNumber();
@@ -216,19 +216,19 @@ void configQuickGame(){
     }
     lcd.noCursor();
     lcd.noBlink();   
-    lcd.setCursor(13,1);
-    lcd.print("ok?");
+    lcd.setCursor(7,3);
+    lcd.print(F(" OK?"));
     //zona donde pasamos los items a
     //redibujar
     while(1){
       var = keypad.waitForKey();
-      if(var == 'd') // Cancel or Back Button :')
+      if(var == '#') //
       {
         tone(tonepin,2400,30);
         BOMBMINUTES= ((time[0]*10)+(time[1]));
         break;
       }    
-  if(var == 'c') // Cancel or Back Button :')
+  if(var == '*') // Cancel or Back Button :')
       {
         tone(tonepin,2400,30);
         goto menu2;
@@ -249,7 +249,7 @@ void configQuickGame(){
     lcd.print(ZERO_SECS);
     lcd.cursor();
     lcd.blink();
-    lcd.setCursor(0,1);
+    lcd.setCursor(3,1);
     for(int i=0;i<2;i++){ 
       while(1){
         byte varu= getRealNumber();
@@ -263,20 +263,20 @@ void configQuickGame(){
     }
     lcd.noCursor();
     lcd.noBlink(); 
-    lcd.setCursor(13,1);
-    lcd.print("ok?");  
+    lcd.setCursor(7,3);
+    lcd.print(F(" OK?"));
     
     //zona donde pasamos los items a
     //redibujar
     while(1){
       var = keypad.waitForKey();
-      if(var == 'd') // Cancel or Back Button :')
+      if(var == '#') // Accept
       {
         tone(tonepin,2400,30);
         ACTIVATESECONDS= ((time[0]*10)+(time[1]));
         break;
       }    
-  if(var == 'c') // Cancel or Back Button :')
+  if(var == '*') // Cancel or Back Button :')
       {
         tone(tonepin,2400,30);
         goto menu3;
@@ -285,46 +285,46 @@ void configQuickGame(){
     tone(tonepin,2400,30);
     cls();
   }
-  //Want sound??
+  //sound??
   if(sdStatus || saStatus || doStatus){
     cls();
     lcd.print(ENABLE_SOUND);
-    lcd.setCursor(0,1);
+    lcd.setCursor(0,3);
     lcd.print(YES_OR_NOT);
 
     while(1)
     {
       var = keypad.waitForKey();
-      if(var == 'a' ){
+      if(var == '#' ){
         soundEnable=true;
         tone(tonepin,2400,30);
         break;
       }  
 
-      if(var == 'b' ){
+      if(var == '*' ){
         soundEnable=false;
         tone(tonepin,2400,30);
         break;
       }  
     }
   } 
-  //Activate Mosfet at Terrorist game ends??? Boom!
+  //Activate RELAY at Terrorist game ends??? Boom!
 
   if(sdStatus || saStatus){
     cls();
-    lcd.print(ENABLE_MOSFET);
-    lcd.setCursor(0,1);
+    lcd.print(ENABLE_RELAYPIN);
+    lcd.setCursor(0,3);
     lcd.print(YES_OR_NOT);
     while(1)
     {
       var = keypad.waitForKey();
-      if(var == 'a' ){
-        mosfetEnable=true;
+      if(var == '#' ){
+        relayEnable=true;
         tone(tonepin,2400,30);
         break;
       }  
-      if(var == 'b' ){
-        mosfetEnable=false;
+      if(var == '*' ){
+        relayEnable=false;
         tone(tonepin,2400,30);
         break;
       }  
@@ -334,19 +334,19 @@ void configQuickGame(){
   if(sdStatus || saStatus){
     cls();
     lcd.print(ENABLE_CODE);
-    lcd.setCursor(0,1);
+    lcd.setCursor(0,3);
     lcd.print(YES_OR_NOT);
 
     while(1)
     {
       var = keypad.waitForKey();
-      if(var == 'a' ){
+      if(var == '#' ){
         tone(tonepin,2400,30);
         setNewPass();
         passwordEnable = true;
         break;
       }  
-      if(var == 'b' ){
+      if(var == '*' ){
         tone(tonepin,2400,30);
         passwordEnable = false;
         break;

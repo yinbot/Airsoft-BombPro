@@ -1,3 +1,7 @@
+Version 2.1 now compatible with newest Fritzing.
+
+Info below for legacy version.
+
 Please use Fritzing 0.7.12 or similar because the file is not compatible with newer version of fritzing
 
 Download Here 

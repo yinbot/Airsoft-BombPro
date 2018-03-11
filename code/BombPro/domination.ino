@@ -1,7 +1,7 @@
 void domination(){
 
   //SETUP INITIAL TIME 
-  int minutos = GAMEMINUTES-1;
+  uint8_t minutos = GAMEMINUTES-1;
   boolean showGameTime=true;
   unsigned long a;
   unsigned long iTime=millis(); //  initialTime in millisec 
@@ -38,11 +38,11 @@ void domination(){
       if(team==2)digitalWrite(REDLED, LOW);
     }
     // Sound!!! same as Destroy 
-    if(timeCalcVar >= 0 && timeCalcVar <= 40 && soundEnable)tone(tonepin,tonoActivada,largoTono);
+    if(timeCalcVar >= 0 && timeCalcVar <= 40 && soundEnable)tone(tonepin,activeTone,largoTono);
 
-    if(timeCalcVar >= 245 && timeCalcVar <= 255 && minutos-aTime/60000<2 && soundEnable)tone(tonepin,tonoActivada,largoTono);
-    if(timeCalcVar >= 495 && timeCalcVar <= 510 && minutos-aTime/60000<4 && soundEnable)tone(tonepin,tonoActivada,largoTono);
-    if(timeCalcVar >= 745 && timeCalcVar <= 760 && minutos-aTime/60000<2 && soundEnable)tone(tonepin,tonoActivada,largoTono);
+    if(timeCalcVar >= 245 && timeCalcVar <= 255 && minutos-aTime/60000<2 && soundEnable)tone(tonepin,activeTone,largoTono);
+    if(timeCalcVar >= 495 && timeCalcVar <= 510 && minutos-aTime/60000<4 && soundEnable)tone(tonepin,activeTone,largoTono);
+    if(timeCalcVar >= 745 && timeCalcVar <= 760 && minutos-aTime/60000<2 && soundEnable)tone(tonepin,activeTone,largoTono);
     //Help to count 3 secs
     if(a+2000<millis()){
       a=millis();   
@@ -52,20 +52,26 @@ void domination(){
     //THE NEXT TO METHODS SHOW "GAME TIME" AND "CONTROLED ZONE TIME" IT SHOWS 2 AND 2 SEC EACH
 
     if(showGameTime){ //THE SECOND IS /2
-      lcd.setCursor(3,0);
-      lcd.print("GAME TIME");
-      lcd.setCursor(3,1);
+      lcd.setCursor(5,0);
+      lcd.print(F("GAME TIME"));
+      lcd.setCursor(5,2);
       printTime(minutos, aTime);
     }
     else if (!showGameTime){
 
       lcd.setCursor(2,0);
-      if(team == 0)lcd.print("NEUTRAL ZONE");
-      if(team == 1)lcd.print(" GREEN ZONE");
-      if(team == 2)lcd.print("  RED ZONE");
+      if (team == TEAM_NEUTRAL) {
+        lcd.print(F("  NEUTRAL ZONE"));
+      }
+      if (team == TEAM_BLUE) {
+        lcd.print(F("   BLUE ZONE"));
+      }
+      if (team == TEAM_RED) {
+        lcd.print(F("   RED ZONE"));
+      }
 
-      if(team>0){
-        lcd.setCursor(3,1);
+      if (team != TEAM_NEUTRAL) {
+        lcd.setCursor(5, 2);
         printTimeDom(millis()-iZoneTime,true);
       }
     }
@@ -79,15 +85,15 @@ void domination(){
     }
 
     //Check If IS neutral
-    while((defuseando || cancelando) && team > 0)
-    {
+    while ((isRedButtonPressed() && team == TEAM_BLUE) || (isBlueButtonPressed() && team == TEAM_RED)) {
       cls();
-      if(team>0)lcd.print("NEUTRALIZING...");
-      lcd.setCursor(0,1);
-      unsigned int percent=0;
+      if(team != TEAM_NEUTRAL) {
+        lcd.print(F("   NEUTRALIZING..."));
+      }
+      lcd.setCursor(0, 4);
+      uint8_t percent = 0;
       unsigned long xTime=millis(); //start disabling time
-      while(defuseando || cancelando)
-      {
+      while (isRedButtonPressed() || isBlueButtonPressed()) {
         //check if game time runs out during the disabling
         aTime= millis()- iTime;
         if((minutos-aTime/60000==0 && 59-((aTime/1000)%60)==0) || minutos-aTime/60000>4000000000){ 
@@ -99,17 +105,17 @@ void domination(){
 
         if( timeCalcVar >= 0 && timeCalcVar <= 20)
         {
-          if(soundEnable)tone(tonepin,tonoAlarma1,200);
+          if(soundEnable)tone(tonepin,alarmTone1,200);
         }
         if(timeCalcVar >= 480 && timeCalcVar <= 500)
         {
-          if(soundEnable)tone(tonepin,tonoAlarma2,200);
+          if(soundEnable)tone(tonepin,alarmTone2,200);
           digitalWrite(REDLED, LOW);
         }
 
         unsigned long seconds= millis() - xTime;
         percent = (seconds)/(ACTIVATESECONDS*10);
-        drawPorcent(percent);
+        drawBar(percent);
 
         if(percent >= 100)
         {
@@ -133,40 +139,37 @@ void domination(){
 
     //Capturing red
 
-    while(defuseando && team == 0 )
-    {
+    while (isRedButtonPressed() && team == TEAM_NEUTRAL) {
       cls();
-      if(team==0)lcd.print(" CAPTURING ZONE");
-      lcd.setCursor(0,1);
-      unsigned int percent=0;
-      unsigned long xTime=millis(); //start disabling time
-      while(defuseando)
-      {
+      if (team == TEAM_NEUTRAL) {
+        lcd.print(F("   CAPTURING ZONE"));
+      }
+      lcd.setCursor(0, 3);
+      uint8_t percent = 0;
+      unsigned long xTime = millis(); //start disabling time
+      while (isRedButtonPressed()) {
         keypad.getKey();
         //check if game time runs out during the disabling
-        aTime= millis()- iTime;
-        if((minutos-aTime/60000==0 && 59-((aTime/1000)%60)==0) || minutos-aTime/60000>4000000000){ 
+        aTime = millis()- iTime;
+        if ((minutos-aTime/60000==0 && 59-((aTime/1000)%60)==0) || minutos-aTime/60000>4000000000) {
           endGame = true;
         }
         timeCalcVar = (millis()- xTime)%1000;
 
-        if( timeCalcVar >= 0 && timeCalcVar <= 20)
-        {
+        if( timeCalcVar >= 0 && timeCalcVar <= 20) {
           digitalWrite(REDLED, HIGH);  
-          if(soundEnable)tone(tonepin,tonoAlarma1,200);
+          if(soundEnable)tone(tonepin,alarmTone1,200);
         }
-        if(timeCalcVar >= 480 && timeCalcVar <= 500)
-        {
-          if(soundEnable)tone(tonepin,tonoAlarma2,200);
+        if(timeCalcVar >= 480 && timeCalcVar <= 500) {
+          if(soundEnable)tone(tonepin,alarmTone2,200);
           digitalWrite(REDLED, LOW);
         }
 
         unsigned long seconds= millis() - xTime;
         percent = (seconds)/(ACTIVATESECONDS*10);
-        drawPorcent(percent);
+        drawBar(percent);
 
-        if(percent >= 100)
-        {
+        if(percent >= 100) {
           digitalWrite(GREENLED, LOW);
           team=2;
           iZoneTime=millis();
@@ -178,16 +181,14 @@ void domination(){
       digitalWrite(REDLED, LOW);
     }
 
-    //getting to green zone
-    while(cancelando && team == 0 )
-    {
+    //getting to blue zone
+    while (isBlueButtonPressed() && team == TEAM_NEUTRAL ) {
       cls();
-      if(team==0)lcd.print(" CAPTURING ZONE");
-      lcd.setCursor(0,1);
-      unsigned int percent=0;
+      if(team==0)lcd.print(F("   CAPTURING ZONE"));
+      lcd.setCursor(0,3);
+      uint8_t percent=0;
       unsigned long xTime=millis(); //start disabling time
-      while(cancelando)
-      {
+      while (isBlueButtonPressed()) {
         keypad.getKey();
         //check if game time runs out during the disabling
         aTime= millis()- iTime;
@@ -199,17 +200,17 @@ void domination(){
         if( timeCalcVar >= 0 && timeCalcVar <= 20)
         {
           digitalWrite(GREENLED, HIGH);  
-          if(soundEnable)tone(tonepin,tonoAlarma1,200);
+          if(soundEnable)tone(tonepin,alarmTone1,200);
         }
         if(timeCalcVar >= 480 && timeCalcVar <= 500)
         {
-          if(soundEnable)tone(tonepin,tonoAlarma2,200);
+          if(soundEnable)tone(tonepin,alarmTone2,200);
           digitalWrite(GREENLED, LOW);
         }
 
         unsigned long seconds= millis() - xTime;
         percent = (seconds)/(ACTIVATESECONDS*10);
-        drawPorcent(percent);
+        drawBar(percent);
 
         if(percent >= 100)
         {
@@ -232,74 +233,80 @@ void gameOver(){
   if(team==2)redTime+=millis()-iZoneTime;
   digitalWrite(GREENLED, LOW);
   digitalWrite(REDLED, LOW);
-  while(!defuseando){
+  while(!defusing){
     keypad.getKey();
-    if(defuseando){
+    if(defusing){
       keypad.getKey();
       break;
     }
     lcd.clear();
-    lcd.setCursor(3,0);
-    lcd.print("TIME OVER!");
-    lcd.setCursor(0,1);
+    lcd.setCursor(2,5);
+    lcd.print(F("  TIME OVER!"));
+    lcd.setCursor(0,3);
 
     //check who team win the base
-    if(greenTime>redTime){
-      //greenteam wins
-      lcd.print(" GREEN TEAM WIN");
+    if (greenTime > redTime ) {
+      // greenteam wins
+      lcd.print(F("   BLUE TEAM WINS"));
       digitalWrite(GREENLED, HIGH);
-    }
-    else{
-      //redteam wins 
-      lcd.print("  RED TEAM WIN");
+    } else {
+      // redteam wins 
+      lcd.print(F("   RED TEAM WINS"));
       digitalWrite(REDLED, HIGH);
     }
     delay(3000);
     keypad.getKey();
-    if(defuseando){
+    if(defusing){
       keypad.getKey();
       break;
     }
     cls();
-    lcd.print("Red Time:");
-    lcd.setCursor(5,1);
+    lcd.print(F("      Red Time:"));
+    lcd.setCursor(7, 2);
     printTimeDom(redTime,false);
     delay(3000);
     keypad.getKey();
-    if(defuseando){
-      
+    if (defusing) {
       break;
     }
     cls();
-    lcd.print("Green Time:");
-    lcd.setCursor(5,1);
+    lcd.print(F("     Blue Time:"));
+    lcd.setCursor(7, 2);
     printTimeDom(greenTime,false);
     delay(3000);
     keypad.getKey();
-    if(defuseando){
+    if(defusing){
       keypad.getKey();
       break;
     }
   }
   cls();
   delay(100);
-  lcd.print("Play Again?");
-  lcd.setCursor(0,1);
-  lcd.print("A : Yes B : No");
+  lcd.print(F("    Play Again?"));
+  lcd.setCursor(0,3);
+  lcd.print(F("   # : Yes * : No"));
   while(1)
   {
     var = keypad.waitForKey();
-    if(var == 'a' ){
+    if(var == '#' ){
       tone(tonepin,2400,30);
       cls();
       domination();
       break;
     }  
-    if(var == 'b' ){
+    if(var == '*' ){
       tone(tonepin,2400,30);
       menuPrincipal();
       break;
     }  
   } 
+}
+
+boolean isRedButtonPressed () {
+  return defusing;
+}
+
+boolean isBlueButtonPressed () {
+  return cancelando;
 }
 
