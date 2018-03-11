@@ -12,6 +12,7 @@ void domination(){
   aTime=0;
   redTime=0;
   greenTime=0;
+  endGame = false;
 
   int largoTono = 50;
   // 0 = neutral, 1 = green team, 2 = red team
@@ -240,9 +241,13 @@ void gameOver(){
       break;
     }
     lcd.clear();
-    lcd.setCursor(2,5);
+    lcd.setCursor(2, 0);
     lcd.print(F("  TIME OVER!"));
-    lcd.setCursor(0,3);
+
+    lcd.setCursor(0, 3);
+    lcd.print(F("  HOLD # FOR MENU"));
+
+    lcd.setCursor(0, 1);
 
     //check who team win the base
     if (greenTime > redTime ) {
@@ -291,6 +296,7 @@ void gameOver(){
     if(var == '#' ){
       tone(tonepin,2400,30);
       cls();
+      startGameCount();
       domination();
       break;
     }  
