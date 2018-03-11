@@ -101,6 +101,7 @@ byte team=0; // 0 = neutral, 1 = blue team, 2 = red team
 const byte TEAM_NEUTRAL = 0;
 const byte TEAM_BLUE = 1;
 const byte TEAM_RED = 2;
+char *centerText (char *text, char *wrapper="==");
 
 void setup () {
   lcd.begin(20, 4);

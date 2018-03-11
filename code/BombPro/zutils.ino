@@ -166,4 +166,40 @@ void activateRelay(){
 
 }
 
+char *centerText (char *text, char *wrapper) {
+  /*
+   * The purpose of this function is to return text in a centered fashion.
+   * The default wrapper is ==
+   */
+  const uint8_t width = 20; // width of the lcd panel
+  bool useWrapper = true;
+  if (strlen(text) > width ) {
+    // text is just too long
+    return text;
+  } else if (strlen(text) + (strlen(wrapper) * 2) > 20 ) {
+    // text would be too long with the wrapper
+    useWrapper = false;
+  }
 
+  uint8_t padding;
+
+  char returnString[width];
+  if (useWrapper == false) {
+    wrapper = (char)0; // we do not want to use the wrapper so lets kill the contents
+  }
+  padding = (width - (strlen(text) + (strlen(wrapper) * 2) )) / 2;
+
+  strcpy(returnString, wrapper);
+  for (uint8_t i = 0; i < padding; i++) {
+    strcat(returnString, " ");
+  }
+  strcat(returnString, text);
+  if (strlen(returnString) + padding + strlen(wrapper) < width) {
+    padding = 20 - (strlen(returnString) + padding + strlen(wrapper)) + padding;
+  }
+  for (uint8_t i = 0; i < padding; i++) {
+    strcat(returnString, " ");
+  }
+  strcat(returnString, wrapper);
+  return returnString;
+}
