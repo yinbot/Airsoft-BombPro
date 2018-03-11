@@ -97,7 +97,10 @@ unsigned long timeCalcVar;
 unsigned long redTime;
 unsigned long greenTime;
 unsigned long iZoneTime;//initial time for zone
-byte team=0; // 0 = neutral, 1 = green team, 2 = red team
+byte team=0; // 0 = neutral, 1 = blue team, 2 = red team
+const byte TEAM_NEUTRAL = 0;
+const byte TEAM_BLUE = 1;
+const byte TEAM_RED = 2;
 
 void setup () {
   lcd.begin(20, 4);
