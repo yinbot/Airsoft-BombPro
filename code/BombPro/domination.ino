@@ -85,7 +85,7 @@ void domination(){
     }
 
     //Check If IS neutral
-    while ((isRedButtonPressed() || isBlueButtonPressed()) && team !=  TEAM_NEUTRAL) {
+    while ((isRedButtonPressed() && team == TEAM_BLUE) || (isBlueButtonPressed() && team == TEAM_RED)) {
       cls();
       if(team != TEAM_NEUTRAL) {
         lcd.print(F("   NEUTRALIZING..."));
