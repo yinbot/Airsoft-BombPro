@@ -17,9 +17,9 @@ void menuPrincipal(){   //MAIN MENU
   lcd.setCursor(15,1);
   checkArrows(i,2);
   while(1){
-
     var = keypad.waitForKey();
     if(var == BT_UP && i>0){
+      LED0_ON
       tone(tonepin,2400,30);
       i--;
       cls();
@@ -28,6 +28,7 @@ void menuPrincipal(){   //MAIN MENU
       delay(50);
     }
     if(var == BT_DOWN && i<2){
+      LED7_ON
       tone(tonepin,2400,30);
       i++;
       cls(); 
