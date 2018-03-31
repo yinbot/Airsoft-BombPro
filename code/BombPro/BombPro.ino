@@ -65,6 +65,11 @@ char BT_DEFUSER = 'x';   // not implemented
 const uint8_t REDLED = 22;
 const uint8_t GREENLED = 23;
 //const int BLUELED = 12;
+
+// led animation variables
+bool animatingRed = false;
+uint8_t animationStyle = 1;
+
 //RELAYPIN
 boolean relayEnable = false;
 const uint8_t RELAYPIN = 9;
@@ -106,10 +111,7 @@ const byte TEAM_RED = 2;
 void setup () {
   lcd.begin(20, 4);
   Serial.begin(9600);
-  pinMode(SER_OUT, OUTPUT);
-  pinMode(SRCK, OUTPUT);
-  pinMode(RCK, OUTPUT);
-  LED_OFF // turn off all leds at start in case we trigger a reboot.
+  setupTPIC();
 
   startupSplash();
   keypad.setHoldTime(50);

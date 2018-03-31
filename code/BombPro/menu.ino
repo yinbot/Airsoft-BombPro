@@ -17,9 +17,11 @@ void menuPrincipal(){   //MAIN MENU
   lcd.setCursor(15,1);
   checkArrows(i,2);
   while(1){
-    var = keypad.waitForKey();
+    ledAnimations(animationStyle);
+    var = keypad.getKey();
     if(var == BT_UP && i>0){
-      LED0_ON
+      animatingRed = true;
+      animationStyle = 0;
       tone(tonepin,2400,30);
       i--;
       cls();
@@ -28,7 +30,8 @@ void menuPrincipal(){   //MAIN MENU
       delay(50);
     }
     if(var == BT_DOWN && i<2){
-      LED7_ON
+      animatingRed = true;
+      animationStyle = 1;
       tone(tonepin,2400,30);
       i++;
       cls(); 
