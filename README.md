@@ -1,8 +1,8 @@
-# Airsoft-BombPro 1.5
-By Ignacio Lillo yinbot -at- gmail 
+# Airsoft-BombPro
+Originally By Ignacio Lillo yinbot -at- gmail 
 http://yin.mainstreamds.com
 
-Is an arduino sketch for prop simulation used in Airsoft/Paintball/Wargames
+This is an arduino sketch for prop simulation used in Airsoft/Paintball/Wargames. It can function as a game controller but also as a bomb that must be activated/deactivated for the objective to be completed.
 
 Features:
 
@@ -11,13 +11,5 @@ Features:
  - Sabotage
  - Domination
 * Passcode arm/disarm
-* Sound ( not high quality it´s just an arduino)
+* Sound (not high quality it´s just an arduino)
 * Relay / Mosfet for external siren/light
-* just need few components
-
-
-For detailed demo check this video (in spanish)
-https://www.youtube.com/watch?v=A4FXwVMnf_c
-
-Check diagram folder for diagrams
-

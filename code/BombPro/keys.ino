@@ -1,39 +1,10 @@
-//Used to get keys, here you can configure how works the input without modify the other code
-boolean isPressed(char key) 
-{
-
-//  Serial.print("checkeando= ");
-//  Serial.print(key);
-
-//  Serial.print(" estado = ");
-//  Serial.print(keypad.getState());
-
-//  Serial.print(" estado = ");
-//  Serial.print(keypad.getKey());
-
-  if(keypad.getKey() == key)
-  {
-//    Serial.println(" TRUE");
-    return true;
-  }
-  else if(keypad.getKey() == key && keypad.getState() == 2)
-  {
-//    Serial.print(" Hold!!");
-//    Serial.println(key);
-    return true;
-  }
-//  Serial.println(" Falso");
-  return false;
-}
-
-//This fuction compare enteredText[8] and password[8] variables
+//This fuction compare codeInput[8] and password[8] variables
 boolean comparePassword(){
 
   for(int i=0;i<8;i++){
-    if(enteredText[i]!=password[i])return false;
+    if(codeInput[i]!=password[i])return false;
   }
   return true;
-
 }
 
 //Set the password variable
@@ -44,11 +15,11 @@ void setCode(){
     while(1){
       var= getNumber();
       if(var !='x'){
-        enteredText[i] = var;
+        codeInput[i] = var;
 
         if (i != 0){
           lcd.setCursor(i-1,1);
-          lcd.print("*");
+          lcd.print(F("*"));
           lcd.print(var);
         }
         else
@@ -67,17 +38,17 @@ void setCodeTime(){
 
   for(int i=0;i<8;i++){
     while(1){
-      if(5000+timeCalcVar-millis()<=100){
-        enteredText[i]='x';
+      if(ACTIVATESECONDS*1000+timeCalcVar-millis()<=100){
+        codeInput[i]='x';
         break;
       }
 
       lcd.setCursor(11,0);
-      printTimeDom(5000+timeCalcVar-millis(),false);
+      printTimeDom(ACTIVATESECONDS*1000+timeCalcVar-millis(),false);
 
       var= getNumber();
       if(var !='x'){
-        enteredText[i] = var;
+        codeInput[i] = var;
 
         if (i != 0){
           lcd.setCursor(i-1,1);
@@ -104,7 +75,7 @@ void setPass(){
         password[i] =  var;
         if (i != 0){
           lcd.setCursor(i-1,1);
-          lcd.print("*");
+          lcd.print(F("*"));
           lcd.print(var);
         }
         else
@@ -123,12 +94,12 @@ void setNewPass(){
   while(1){
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Enter New Pass");
+    lcd.print(F("   Enter New Pass"));
     setPass();
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Retype Pass");
+    lcd.print(F("    Retype Pass"));
 
     setCode();
 
@@ -136,14 +107,14 @@ void setNewPass(){
 
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("Password Set OK!");
+      lcd.print(F("  Password Set OK!"));
       delay(2000); 
       break; 
     }
     else {
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("ERROR Dont Match!");
+      lcd.print(F(" ERROR Dont Match!"));
       if(soundEnable)tone(tonepin,errorTone,200);
       delay(2000); 
 
@@ -155,10 +126,8 @@ void setNewPass(){
 
 
 char getNumber(){
-
   while(1){
     var = keypad.getKey();
-
     if (var){//
       switch (var) {
       case 'a': 
