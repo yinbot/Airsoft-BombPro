@@ -1,6 +1,6 @@
-  char* menu1[]={"Search&Destroy","Sabotage","Domination"      };
-  char* menu2[]={"Game Config","Sound Config", "Mosfet Test", "Auto Test"      };   
-  char* GAME_TIME="Game Time:";
+  char* menu1[]={"Search&Destroy","Sabotage","Domination"      }; // ia: elementos del menú principal
+  char* menu2[]={"Game Config","Sound Config", "Mosfet Test", "Auto Test"      };   // ia: elementos del submenú de configuración
+  char* GAME_TIME="Game Time:"; // ia: etiquetas UI
   char* BOMB_TIME="Bomb Time:";
   char* ZERO_MINUTES="00 minutes";
   char* ARM_TIME="Arm Time:";

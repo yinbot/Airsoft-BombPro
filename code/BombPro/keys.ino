@@ -1,4 +1,5 @@
 //Used to get keys, here you can configure how works the input without modify the other code
+// ia: Abstracciones de lectura del teclado para desacoplar hardware y lógica
 boolean isPressed(char key) 
 {
 
@@ -155,37 +156,22 @@ void setNewPass(){
 
 
 char getNumber(){
-
-  while(1){
-    var = keypad.getKey();
-
-    if (var){//
-      switch (var) {
-      case 'a': 
-        return 'x';
-        break;
-      case 'b': 
-        return 'x';
-        break;
-
-      case 'c': 
-        return 'x';
-        break;
-      case 'd': 
-        return 'x';
-        break;
-      case '*': 
-        return 'x';
-        break;
-      case '#': 
-        return 'x';
-        break;
-      default:
-        return var;
-        break;
-      }
-    }
-    return 'x';
+  // ia: No bloquea; si no hay tecla devuelve 'x'. Solo números válidos
+  char keyPressed = keypad.getKey();
+  switch (keyPressed) {
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+      return keyPressed;
+    default:
+      return 'x';
   }
 }
 

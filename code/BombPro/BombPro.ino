@@ -66,10 +66,10 @@ const int REDLED = 11;
 const int GREENLED = 10;
 //const int BLUELED = 12;
 //mosfet
-boolean mosfetEnable = false;
+boolean mosfetEnable = false; // ia: si está en true, se activa el mosfet al finalizar ciertos modos
 const int mosfet = 9;
 //IS VERY IMPORTANT THAT YOU TEST THIS TIME. BY DEFAULT IS IN 1 SEC. THAT IS NOT TOO MUCH. SO TEST IT!
-const int MOSFET_TIME = 5000;
+const int MOSFET_TIME = 5000; // ia: tiempo en ms que permanece activo el mosfet
 
 //TIME INTS
 int GAMEHOURS = 0;
@@ -79,14 +79,14 @@ int ACTIVATESECONDS = 5;
 
 boolean endGame = false;
 
-boolean sdStatus = false; //search and destroy game enable used in config
-boolean saStatus = false; //same but SAbotaghe
-boolean doStatus = false; //for DEmolition
+boolean sdStatus = false; // ia: Search & Destroy habilitado
+boolean saStatus = false; // ia: Sabotage habilitado
+boolean doStatus = false; // ia: Domination habilitado
 boolean start = true;
 boolean defuseando;
 boolean cancelando;
 // SOUND TONES
-boolean soundEnable = true;
+boolean soundEnable = true; // ia: permite silenciar rápidamente todos los tonos
 int tonepin = 8; // Pin 13 for the sound
 int tonoPitido = 3000;
 int tonoAlarma1 = 700;
@@ -111,8 +111,8 @@ void setup(){
   lcd.print("IGNIS ONE");// you can add your team name or someting cool
   lcd.setCursor(0,1);
   lcd.print(" AIRSOFT SYSTEM");// you can add your team name or someting cool
-  keypad.setHoldTime(50);
-  keypad.setDebounceTime(50);
+  keypad.setHoldTime(50); // ia: tiempo para considerar tecla en HOLD (ms)
+  keypad.setDebounceTime(50); // ia: antirrebote (ms)
   keypad.addEventListener(keypadEvent);
   delay(2000);
   pinMode(GREENLED, OUTPUT);     
