@@ -1,6 +1,7 @@
 void drawPorcent(byte porcent){
-  //TODO: Optimize this code 
-  int aDibujar=(8*porcent)/10;
+  // ia: Dibuja una barra de progreso de 0-100 con bloques personalizados
+  if (porcent > 100) porcent = 100; // ia: clamp a 100
+  int aDibujar=(8*porcent)/10; // 0..80 pasos de 1 columna
   lcd.setCursor(0,1);
 
   if(aDibujar<5)
@@ -154,7 +155,7 @@ void startGameCount(){
   lcd.print("Starting Game");
   for(int i = 5; i > 0 ; i--){ // START COUNT GAME INIT
     lcd.setCursor(5,1);
-    tone(tonepin,2000,100);
+    if(soundEnable) tone(tonepin,2000,100); // ia: respeta configuración de sonido
     lcd.print("IN ");
     lcd.print(i);
     delay(1000);

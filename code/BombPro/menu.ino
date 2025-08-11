@@ -20,7 +20,7 @@ void menuPrincipal(){   //MAIN MENU
 
     var = keypad.waitForKey();
     if(var == BT_UP && i>0){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       i--;
       cls();
       lcd.print(menu1[i]);
@@ -28,7 +28,7 @@ void menuPrincipal(){   //MAIN MENU
       delay(50);
     }
     if(var == BT_DOWN && i<2){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       i++;
       cls(); 
       lcd.print(menu1[i]);    
@@ -37,7 +37,7 @@ void menuPrincipal(){   //MAIN MENU
     }
 
     if(var == BT_SEL){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       cls();
       switch (i){
 
@@ -82,7 +82,7 @@ void config(){
   while(1){
     var=keypad.waitForKey();
     if(var == BT_UP && i>0){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       i--;
       lcd.clear();  
       lcd.print(menu2[i]);
@@ -91,7 +91,7 @@ void config(){
 
     }
     if(var == BT_DOWN && i<3){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       i++;
       lcd.clear();  
       lcd.print(menu2[i]);
@@ -99,11 +99,11 @@ void config(){
       delay(50);
     }
     if(var == BT_CANCEL){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       menuPrincipal();
     }
     if(var == BT_SEL){
-      tone(tonepin,2400,30);
+      if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
       lcd.clear();
       switch (i){
 
@@ -147,7 +147,7 @@ void configQuickGame(){
     lcd.blink();
     lcd.setCursor(0,1);
     byte var2=0;
-    for(int i=0;i<4;i++){ 
+         for(int i=0;i<4;i++){ 
       while(1){
         if(i==2 && var2==0){
           lcd.print(":");
@@ -162,7 +162,7 @@ void configQuickGame(){
 
 
           lcd.print(varu);
-          tone(tonepin,2400,30);
+          if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
 
           break;
         }
@@ -178,17 +178,17 @@ void configQuickGame(){
       var = keypad.waitForKey();
       if(var == 'd') // Cancel or Back Button :')
       {
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         GAMEMINUTES= ((time[0]*600)+(time[1]*60)+(time[2]*10)+(time[3]));
         break;
       }    
   if(var == 'c') // Cancel or Back Button :')
       {
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         goto menu1;
       }           
     }
-    tone(tonepin,2400,30);
+    if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
     cls();
   }
   //BOMB TIME
@@ -209,7 +209,7 @@ void configQuickGame(){
         if(varu !=11){
           time[i] =  varu;
           lcd.print(varu);
-          tone(tonepin,2400,30);
+          if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
           break;
         }
       }  
@@ -224,17 +224,17 @@ void configQuickGame(){
       var = keypad.waitForKey();
       if(var == 'd') // Cancel or Back Button :')
       {
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         BOMBMINUTES= ((time[0]*10)+(time[1]));
         break;
       }    
   if(var == 'c') // Cancel or Back Button :')
       {
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         goto menu2;
       }           
     }
-    tone(tonepin,2400,30);
+    if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
     cls();
   }
   cls();
@@ -256,7 +256,7 @@ void configQuickGame(){
         if(varu !=11){
           time[i] =  varu;
           lcd.print(varu);
-          tone(tonepin,2400,30);
+          if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
           break;
         }
       }  
@@ -272,17 +272,17 @@ void configQuickGame(){
       var = keypad.waitForKey();
       if(var == 'd') // Cancel or Back Button :')
       {
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         ACTIVATESECONDS= ((time[0]*10)+(time[1]));
         break;
       }    
   if(var == 'c') // Cancel or Back Button :')
       {
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         goto menu3;
       }           
     }
-    tone(tonepin,2400,30);
+    if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
     cls();
   }
   //Want sound??
@@ -297,13 +297,13 @@ void configQuickGame(){
       var = keypad.waitForKey();
       if(var == 'a' ){
         soundEnable=true;
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         break;
       }  
 
       if(var == 'b' ){
         soundEnable=false;
-        tone(tonepin,2400,30);
+        // ia: al desactivar sonido, no reproducimos tono para confirmación
         break;
       }  
     }
@@ -320,12 +320,12 @@ void configQuickGame(){
       var = keypad.waitForKey();
       if(var == 'a' ){
         mosfetEnable=true;
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         break;
       }  
       if(var == 'b' ){
         mosfetEnable=false;
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         break;
       }  
     } 
@@ -341,13 +341,13 @@ void configQuickGame(){
     {
       var = keypad.waitForKey();
       if(var == 'a' ){
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         setNewPass();
         passwordEnable = true;
         break;
       }  
       if(var == 'b' ){
-        tone(tonepin,2400,30);
+        if(soundEnable) tone(tonepin,2400,30); // ia: respeta configuración de sonido
         passwordEnable = false;
         break;
       }  

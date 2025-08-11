@@ -95,7 +95,8 @@ void search(){
         }
 
         unsigned long seconds= millis() - xTime;
-        percent = (seconds)/(ACTIVATESECONDS*10);
+        unsigned long activationDivisor = (ACTIVATESECONDS == 0 ? 1UL : (unsigned long)ACTIVATESECONDS) * 10UL; // ia: evitar división por cero
+        percent = seconds / activationDivisor;
         drawPorcent(percent);
 
         if(percent >= 100)
@@ -224,7 +225,8 @@ void destroy(){
           digitalWrite(GREENLED, LOW);  
         }
         unsigned long seconds=(millis()- xTime);
-        percent= seconds/(ACTIVATESECONDS*10);
+        unsigned long activationDivisor = (ACTIVATESECONDS == 0 ? 1UL : (unsigned long)ACTIVATESECONDS) * 10UL; // ia: evitar división por cero
+        percent= seconds/activationDivisor;
         drawPorcent(percent);  
 
         //BOMB DISARMED GAME OVER
